@@ -1,0 +1,19 @@
+{% extends 'partials/base.html' %}
+{% block title %} Logout Page {%endblock%}
+
+{% block content %}
+<div class="row my-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="border p-3 bg-white">
+            <h4>Logout Page</h4>
+            <hr>
+            <div class="alert alert-info">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">logout</button>
+                </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
