@@ -5,5 +5,7 @@ urlpatterns = [
     path ('dashboard/', views.index, name= 'dashboard-index' ),
     path ('staff/', views.staff, name= 'dashboard-staff'),
     path ('products/', views.products, name= 'dashboard-products'),
+    path('products/delete/<int:pk>/', views.product_delete,name='dashboard-products-delete'),
+    path('products/update/<int:pk>/', views.product_update,name='dashboard-products-update'),
     path ('orders/', views.order, name= 'dashboard-orders'),
 ]
