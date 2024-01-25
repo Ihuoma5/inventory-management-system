@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Product
+from .models import Product, Order 
 from .forms import ProductForm
 from django.contrib.auth.models import User
 
@@ -18,8 +18,13 @@ def staff(request):
     }
     return render(request, 'dashboard/staff.html', context)
 
+@login_required
 def staff_detail(request,pk):
-    return render(request, 'dashboard/staff_detail.html')
+    workers = User.objects.get(id=pk)
+    context = {
+        'workers' : workers,
+    }
+    return render(request, 'dashboard/staff_detail.html', context)
 
 @login_required
 def products(request):
@@ -40,7 +45,7 @@ def products(request):
     }
     return render(request, 'dashboard/products.html', context)
 
-
+@login_required
 def product_delete(request,pk):
     item = Product.objects.get(id=pk)
     if request.method== 'POST':
@@ -48,6 +53,7 @@ def product_delete(request,pk):
         return redirect('dashboard-products')
     return render(request, 'dashboard/product_delete.html')
 
+@login_required
 def product_update(request,pk):
     item = Product.objects.get(id=pk)
     if request.method== 'POST':
@@ -64,5 +70,8 @@ def product_update(request,pk):
 
 @login_required
 def order(request):
-    return render(request, 'dashboard/orders.html')
-
+    orders = Order.objects.all()
+    context ={
+        'orders' : orders,
+    }
+    return render(request, 'dashboard/orders.html', context)
